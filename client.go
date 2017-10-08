@@ -39,7 +39,7 @@ const (
 func (c *Client) CreateConnection() {
 	connection, err := rpc.Dial("tcp", "127.0.0.1:9999")
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalln(err)
 		return
 	}
 	c.Connection = connection
@@ -69,7 +69,7 @@ func (c *Client) Input() {
 		if strings.HasPrefix(str, CMD_CREATE) {
 			c.CreateUser(str)
 		} else if strings.HasPrefix(str, CMD_LIST) {
-			c.ListUsersConnection() 
+			c.ConnectedUsersList() 
 		} else if strings.HasPrefix(str, CMD_QUIT) {
 			c.Quit() 
 		} else if strings.HasPrefix(str, CMD_HELP) {
@@ -93,9 +93,9 @@ func (c *Client) CreateUser(str string) {
 	}
 	fmt.Print(message)
 }
-func (c *Client) ListUsersConnection() {
+func (c *Client) ConnectedUsersList() {
 	var message string		
-	err := c.Connection.Call("ChatServer.ListUsersConnection", true, &message)
+	err := c.Connection.Call("ChatServer.ConnectedUsersList", true, &message)
 	if err != nil {
 		wg.Done()
 	}

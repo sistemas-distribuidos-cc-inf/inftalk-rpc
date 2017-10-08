@@ -38,7 +38,7 @@ func (chat *ChatServer) CreateUser(nickname string, reply *string) error {
 	*reply = "User create with success\n"
 	return nil
 }
-func (chat *ChatServer) ListUsersConnection(nothing *Nothing, reply *string) error {
+func (chat *ChatServer) ConnectedUsersList(nothing *Nothing, reply *string) error {
 	for _, value := range chat.users {
 		*reply += value + "\n"
 	}
